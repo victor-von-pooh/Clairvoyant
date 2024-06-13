@@ -2,3 +2,5 @@
 __pycache__
 
 config/experiment/
+data/
+outputs/
