@@ -1,0 +1,39 @@
+# 特徴量1個目
+# int: 15〜65
+feat_1 = [random.randint(15, 65) for _ in range(1000)]
+
+# 特徴量2個目
+# float: 0.0〜10.0
+feat_2 = [0.1 * random.randint(0, 100) for _ in range(1000)]
+
+# 特徴量3個目
+# int: 0〜200000
+feat_3 = [1000 * random.randint(0, 200) for _ in range(1000)]
+
+# 特徴量4個目
+# float: -1.0〜1.0
+feat_4 = [0.1 * random.randint(-10, 10) for _ in range(1000)]
+
+# 特徴量5個目
+# int 1〜5
+feat_5 = [random.randint(1, 5) for _ in range(1000)]
+
+# 特徴量6個目
+# float: 0.0〜10.0
+feat_6 = [0.1 * random.randint(0, 100) for _ in range(1000)]
+
+# 特徴量7個目
+# int: 0〜100
+feat_7 = [random.randint(0, 100) for _ in range(1000)]
+
+# 特徴量8個目
+# int: 0〜100
+feat_8 = [5 * random.randint(0, 20) for _ in range(1000)]
+
+# 特徴量9個目
+# float: 50.00〜500.00
+feat_9 = [0.01 * random.randint(5000, 50000) for _ in range(1000)]
+
+# 特徴量10個目
+# int: -5〜5
+feat_10 = [random.randint(-5, 5) for _ in range(1000)]
