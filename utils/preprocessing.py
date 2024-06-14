@@ -2,6 +2,7 @@ from typing import Literal
 
 import pandas as pd
 import torch
+from sklearn.preprocessing import StandardScaler
 from torch.utils.data import TensorDataset
 
 
@@ -11,23 +12,36 @@ def df_index_resetter(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def to_torch(
-    df: pd.DataFrame, torch_type: Literal["Float", "Long"]="Float"
-) -> torch.Tensor:
+    df: pd.DataFrame,
+    scaler: StandardScaler | None = None,
+    torch_type: Literal["Float", "Long"] = "Float",
+    scale: bool = False,
+) -> tuple[torch.Tensor, StandardScaler]:
     data = df.to_numpy()
 
-    if torch_type=="Float":
+    if scale:
+        ss = StandardScaler()
+        ss.fit(data)
+        data = ss.transform(data)
+    else:
+        ss = scaler
+        data = ss.transform(data)
+
+    if torch_type == "Float":
         data = torch.from_numpy(data).float()
     else:
         data = torch.from_numpy(data).long()
-    
-    return data
+
+    return data, ss
 
 
 def make_datasets(cfg: dict) -> dict:
     df = pd.read_csv(cfg["data_path"])
     pre_df = df.copy()
 
-    sampling_rate = cfg["sampling_rate"]["train"] + cfg["sampling_rate"]["valid"]
+    sampling_rate = (
+        cfg["sampling_rate"]["train"] + cfg["sampling_rate"]["valid"]
+    )
     train_rate = cfg["sampling_rate"]["train"] / sampling_rate
     sampled_df = pre_df.sample(frac=sampling_rate, random_state=cfg["seed"])
 
@@ -39,9 +53,13 @@ def make_datasets(cfg: dict) -> dict:
     train_df = df_index_resetter(train_df)
     valid_df = df_index_resetter(valid_df)
 
-    org_torch = to_torch(df, cfg["torch_type"])
-    train_torch = to_torch(train_df, cfg["torch_type"])
-    valid_torch = to_torch(valid_df, cfg["torch_type"])
+    train_torch, ss = to_torch(
+        train_df, torch_type=cfg["torch_type"], scale=True
+    )
+    org_torch, ss = to_torch(df, scaler=ss, torch_type=cfg["torch_type"])
+    valid_torch, ss = to_torch(
+        valid_df, scaler=ss, torch_type=cfg["torch_type"]
+    )
 
     org_dataset = TensorDataset(org_torch)
     train_dataset = TensorDataset(train_torch)
@@ -53,7 +71,8 @@ def make_datasets(cfg: dict) -> dict:
         "train_data": train_df,
         "train_dataset": train_dataset,
         "valid_data": valid_df,
-        "valid_dataset": valid_dataset
+        "valid_dataset": valid_dataset,
+        "scaler": ss,
     }
 
     return out
