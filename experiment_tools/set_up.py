@@ -52,7 +52,7 @@ def get_os_info(logger: logging.Logger) -> logging.Logger:
         f"\tProcessor: {platform.processor()}",
         f"\tMachine: {platform.machine()}",
         f"\tNode: {platform.node()}",
-        f"\tPython Version: {platform.python_version()}"
+        f"\tPython Version: {platform.python_version()}",
     ]
     for item in spec:
         os_info += item
