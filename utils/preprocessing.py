@@ -6,7 +6,7 @@ def df_index_resetter(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def make_datasets(df: pd.DataFrame, cfg: dict) -> dict:
+def make_datasets(cfg: dict) -> dict:
     df = pd.read_csv(cfg["data_path"])
     pre_df = df.copy()
 
