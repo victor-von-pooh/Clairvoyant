@@ -1,5 +1,5 @@
 import logging
-from logging import getLogger, FileHandler, Formatter
+from logging import FileHandler, Formatter, getLogger
 
 
 def get_logger(cfg: dict) -> logging.Logger:

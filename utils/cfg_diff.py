@@ -3,7 +3,7 @@ import json
 import logging
 
 
-def get_config(defaut: str, experiment: str) -> set:
+def get_config(defaut: str, experiment: str) -> tuple[dict, dict, str, str]:
     with open(defaut) as f:
         default_cfg = json.load(f)
     with open(experiment) as f:
@@ -15,10 +15,9 @@ def get_config(defaut: str, experiment: str) -> set:
     return (default_cfg, exp_cfg, default_cfg_str, exp_cfg_str)
 
 
-def get_diff(default: str, exp: str, logger: logging.Logger) -> list:
+def get_diff(default: str, exp: str, logger: logging.Logger) -> logging.Logger:
     differ = difflib.ndiff(
-        default.splitlines(keepends=True),
-        exp.splitlines(keepends=True)
+        default.splitlines(keepends=True), exp.splitlines(keepends=True)
     )
 
     diff_parts = "\n"
