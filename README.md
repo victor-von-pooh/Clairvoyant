@@ -20,18 +20,11 @@ VAE(変分オートエンコーダ)をベースにしたデータ拡充用 AI �
 
 
 ## ローカル環境のセットアップ
-`PYTHONPATH` を通して追加する.
-
-```
-echo 'export PYTHONPATH=../..' >> ~/.bashrc
-source ~/.bashrc
-```
-
 仮想環境を構築する.
 
 ```
-python3 -m venv Clairvoyant
-source ./clairvoyant/bin/activate
+python3 -m venv venv
+source ./venv/bin/activate
 ```
 
 `pip3` を使用する場合, リポジトリのターミナル上で以下のコマンドを実行する.
@@ -41,6 +34,12 @@ pip3 install --upgrade pip
 pip3 install -r requirements.txt
 ```
 
+`PYTHONPATH` を通して追加する.
+
+```
+echo 'export PYTHONPATH=../..' >> ~/.bashrc
+source ~/.bashrc
+```
 
 ## 実行方法
 
