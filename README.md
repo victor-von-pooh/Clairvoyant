@@ -27,6 +27,13 @@ echo 'export PYTHONPATH=../..' >> ~/.bashrc
 source ~/.bashrc
 ```
 
+仮想環境を構築する.
+
+```
+python3 -m venv Clairvoyant
+source ./clairvoyant/bin/activate
+```
+
 `pip3` を使用する場合, リポジトリのターミナル上で以下のコマンドを実行する.
 
 ```
