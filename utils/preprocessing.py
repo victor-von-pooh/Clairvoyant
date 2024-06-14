@@ -1,17 +1,13 @@
 import pandas as pd
 
 
-def get_dataframe(cfg: dict) -> pd.DataFrame:
-    df = pd.read_csv(cfg["data_path"])
-    return df
-
-
 def df_index_resetter(df: pd.DataFrame) -> pd.DataFrame:
     df = df.reset_index().drop("index", axis=1)
     return df
 
 
 def make_datasets(df: pd.DataFrame, cfg: dict) -> dict:
+    df = pd.read_csv(cfg["data_path"])
     pre_df = df.copy()
 
     sampling_rate = cfg["sampling_rate"]["train"] + cfg["sampling_rate"]["valid"]
