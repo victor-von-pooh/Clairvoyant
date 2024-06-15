@@ -7,6 +7,7 @@ from genifyer.trainer.loop import train
 from genifyer.trainer.opt import options
 from utils.cfg_diff import get_config, get_diff
 from utils.preprocessing import make_datasets
+from utils.result import plot_data
 
 
 default_filename = "../../config/default/VAE.json"
@@ -77,3 +78,6 @@ model, training_data = train(
     batch_size=cfg["dataloader_params"]["batch_size"],
     device=device
 )
+
+out_dir = cfg["log"]["log_file"].replace("VAE.log", "")
+plot_data(training_data, out_dir)
