@@ -8,7 +8,7 @@ from experiment_tools.set_random_seed import fix_seed
 from experiment_tools.start_logging import get_logger
 
 
-def get_directory(cfg: dict, date_time: dt) -> dict:
+def get_directory(cfg: dict, date_time: dt.datetime) -> dict:
     output_dir = "../../outputs"
     model_output_dir = output_dir + "/" + cfg["model_type"]
 
@@ -62,6 +62,16 @@ def get_os_info(logger: logging.Logger) -> logging.Logger:
     return logger
 
 
+def get_pip_list(logger: logging.Logger) -> logging.Logger:
+    pip_list = "pip3 list:\n\n"
+    pip_list += subprocess.check_output(
+        ["pip3", "list"]
+    ).decode().strip()
+    pip_list += "\n"
+    logger.info(pip_list)
+    return logger
+
+
 def start_experiment(cfg: dict) -> logging.Logger:
     date_time = dt.datetime.now()
     cfg = get_directory(cfg, date_time)
@@ -72,5 +82,6 @@ def start_experiment(cfg: dict) -> logging.Logger:
 
     logger = get_git_info(logger)
     logger = get_os_info(logger)
+    logger = get_pip_list(logger)
 
     return logger
