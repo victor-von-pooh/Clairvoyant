@@ -56,18 +56,15 @@ def make_datasets(cfg: dict) -> dict:
     train_torch, ss = to_torch(
         train_df, torch_type=cfg["torch_type"], scale=True
     )
-    org_torch, ss = to_torch(df, scaler=ss, torch_type=cfg["torch_type"])
     valid_torch, ss = to_torch(
         valid_df, scaler=ss, torch_type=cfg["torch_type"]
     )
 
-    org_dataset = TensorDataset(org_torch)
     train_dataset = TensorDataset(train_torch)
     valid_dataset = TensorDataset(valid_torch)
 
     out = {
         "org_data": df,
-        "org_dataset": org_dataset,
         "train_data": train_df,
         "train_dataset": train_dataset,
         "valid_data": valid_df,
