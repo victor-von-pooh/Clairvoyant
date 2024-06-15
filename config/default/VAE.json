@@ -1,0 +1,55 @@
+{
+    "model_type": "VAE",
+    "log": {
+        "log_file": "VAE.log",
+        "log_formatter": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    },
+    "seed": 8192,
+    "sampling_rate": {
+        "train": 0.02,
+        "valid": 0.02
+    },
+    "data_path": "../../data/sample/sample.csv",
+    "torch_type": "Float",
+    "dataloader_params": {
+        "batch_size": 1,
+        "shuffle": false,
+        "sampler": null,
+        "batch_sampler": null,
+        "num_workers": 0,
+        "collate_fn": null,
+        "pin_memory": false,
+        "drop_last": false,
+        "timeout": 0,
+        "worker_init_fn": null,
+        "prefetch_factor": null,
+        "persistent_workers": false,
+        "pin_memory_device": ""
+    },
+    "params": {
+        "input_dim": 10,
+        "hidden_dim": 32,
+        "latent_dim": 2,
+        "optimizer": "adam",
+        "lr": 1e-5,
+        "lr_decay": 0.0,
+        "weight_decay": 0.0,
+        "initial_accumulator_value": 0.0,
+        "eps": 1e-10,
+        "betas": [0.9, 0.999],
+        "amsgrad": false,
+        "foreach": null,
+        "maximize": false,
+        "capturable": false,
+        "differentiable": false,
+        "fused": null,
+        "lambd": 1e-4,
+        "alpha": 0.75,
+        "t0": 1000000.0,
+        "decoupled_weight_decay": false,
+        "momentum": 0.0,
+        "dampening": 0.0,
+        "nesterov": false,
+        "epochs": 100
+    }
+}
