@@ -1,8 +1,8 @@
 from typing import Literal
 
 import pandas as pd
-import torch
 from sklearn.preprocessing import StandardScaler
+import torch
 from torch.utils.data import TensorDataset
 
 
