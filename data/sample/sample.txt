@@ -15,7 +15,7 @@ feat_3 = [1000 * random.randint(0, 200) for _ in range(1000)]
 feat_4 = [0.1 * random.randint(-10, 10) for _ in range(1000)]
 
 # 特徴量5個目
-# int 1〜5
+# int: 1〜5
 feat_5 = [random.randint(1, 5) for _ in range(1000)]
 
 # 特徴量6個目
