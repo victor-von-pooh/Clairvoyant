@@ -12,7 +12,7 @@ def get_config(defaut: str, experiment: str) -> tuple[dict, dict, str, str]:
     default_cfg_str = json.dumps(default_cfg, indent=4)
     exp_cfg_str = json.dumps(exp_cfg, indent=4)
 
-    return (default_cfg, exp_cfg, default_cfg_str, exp_cfg_str)
+    return default_cfg, exp_cfg, default_cfg_str, exp_cfg_str
 
 
 def get_diff(default: str, exp: str, logger: logging.Logger) -> logging.Logger:
