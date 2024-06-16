@@ -7,7 +7,7 @@ from genifyer.trainer.loop import train
 from genifyer.trainer.opt import options
 from utils.cfg_diff import get_config, get_diff
 from utils.preprocessing import make_datasets
-from utils.result import plot_data
+from utils.result import plot_data, predict
 
 
 default_filename = "../../config/default/VAE.json"
@@ -22,11 +22,13 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 logger.info(f"device: {device}")
 
 out = make_datasets(cfg)
+ss = out["scaler"]
+train_df = out["train_data"]
 
 logger.info(f"original data records: {len(out["org_data"])}")
 logger.info(f"train data records: {len(out["train_data"])}")
 logger.info(f"valid data records: {len(out["valid_data"])}")
-logger.info(f"train raw data:\n\n{out["train_data"]}\n")
+logger.info(f"train raw data:\n\n{train_df}\n")
 
 train_dataloader = DataLoader(
     dataset=out["train_dataset"],
@@ -84,3 +86,7 @@ model, training_data = train(
 out_dir = cfg["log"]["log_file"].replace("VAE.log", "")
 plot_data(training_data, out_dir)
 torch.save(model.state_dict(), f"{out_dir}model_weight.pth")
+
+samples = len(out["train_data"]) * cfg["generate_rate"]
+gen_df = predict(samples, cfg, model, ss, train_df)
+logger.info(f"predicted data:\n\n{gen_df}\n")
