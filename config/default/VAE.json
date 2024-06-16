@@ -52,5 +52,6 @@
         "nesterov": false,
         "epochs": 100
     },
-    "generate_rate": 100
+    "generate_rate": 100,
+    "bins": 10
 }

@@ -7,7 +7,7 @@ from genifyer.trainer.loop import train
 from genifyer.trainer.opt import options
 from utils.cfg_diff import get_config, get_diff
 from utils.preprocessing import make_datasets
-from utils.result import plot_data, predict
+from utils.result import kl_divergence_evaluation, plot_data, predict
 
 
 default_filename = "../../config/default/VAE.json"
@@ -88,5 +88,12 @@ plot_data(training_data, out_dir)
 torch.save(model.state_dict(), f"{out_dir}model_weight.pth")
 
 samples = len(out["train_data"]) * cfg["generate_rate"]
-gen_df = predict(samples, cfg, model, ss, train_df)
+cols = train_df.columns.to_list()
+gen_df = predict(samples, cfg, model, ss, cols)
 logger.info(f"predicted data:\n\n{gen_df}\n")
+
+mean_kl_div = kl_divergence_evaluation(
+    bins=cfg["bins"], cols=cols,
+    org_df=out["org_data"], pred_df=gen_df
+)
+logger.info(f"KL divergence: {mean_kl_div}")
