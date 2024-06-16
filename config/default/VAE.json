@@ -31,7 +31,7 @@
         "hidden_dim": 32,
         "latent_dim": 2,
         "optimizer": "adam",
-        "lr": 1e-5,
+        "lr": 1e-4,
         "lr_decay": 0.0,
         "weight_decay": 0.0,
         "initial_accumulator_value": 0.0,
@@ -51,5 +51,6 @@
         "dampening": 0.0,
         "nesterov": false,
         "epochs": 100
-    }
+    },
+    "generate_rate": 100
 }
