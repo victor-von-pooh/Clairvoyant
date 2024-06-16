@@ -35,7 +35,10 @@ def to_torch(
     return data, ss
 
 
-def make_datasets(cfg: dict) -> dict:
+def make_datasets(cfg: dict) -> dict[
+    pd.DataFrame, pd.DataFrame, TensorDataset,
+    pd.DataFrame, TensorDataset, StandardScaler
+]:
     df = pd.read_csv(cfg["data_path"])
     pre_df = df.copy()
 
