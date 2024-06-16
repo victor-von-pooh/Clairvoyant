@@ -18,6 +18,9 @@ _, cfg, default_str, exp_str = get_config(default_filename, exp_filename)
 logger = start_experiment(cfg)
 logger = get_diff(default_str, exp_str, logger)
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+logger.info(f"device: {device}")
+
 out = make_datasets(cfg)
 
 logger.info(f"original data records: {len(out["org_data"])}")
@@ -62,12 +65,11 @@ model = VAE(
     input_dim=cfg["params"]["input_dim"],
     hidden_dim=cfg["params"]["hidden_dim"],
     latent_dim=cfg["params"]["latent_dim"]
-)
+).to(device=device)
 logger.info(f"model architecture:\n\n{model}\n")
 opt = options(cfg, model)
 optimizer = opt.getter()
 epochs = cfg["params"]["epochs"]
-device = "cuda" if torch.cuda.is_available() else "cpu"
 
 model, training_data = train(
     epochs=epochs,
@@ -81,3 +83,4 @@ model, training_data = train(
 
 out_dir = cfg["log"]["log_file"].replace("VAE.log", "")
 plot_data(training_data, out_dir)
+torch.save(model.state_dict(), f"{out_dir}model_weight.pth")
