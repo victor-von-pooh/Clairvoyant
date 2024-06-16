@@ -1,6 +1,9 @@
 import torch
 from torch import nn
+from torch.utils.data import DataLoader
 from tqdm import tqdm
+
+from genifyer.model.VariationalAutoEncoder import VAE
 
 
 def loss_function(recon_x, x, mu, logvar):
@@ -10,9 +13,9 @@ def loss_function(recon_x, x, mu, logvar):
 
 
 def train(
-    epochs, train_dataloader, valid_dataloader,
-    model, optimizer, batch_size, device
-):
+    epochs: int, train_dataloader: DataLoader, valid_dataloader: DataLoader,
+    model: VAE, optimizer, batch_size: int, device: str
+) -> tuple[VAE, list]:
     dataloader_dict = {"Train": train_dataloader, "Valid": valid_dataloader}
 
     training_data = []
