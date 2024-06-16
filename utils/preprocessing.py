@@ -69,7 +69,7 @@ def make_datasets(cfg: dict) -> dict:
         "train_dataset": train_dataset,
         "valid_data": valid_df,
         "valid_dataset": valid_dataset,
-        "scaler": ss,
+        "scaler": ss
     }
 
     return out
