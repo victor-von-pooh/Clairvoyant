@@ -28,7 +28,7 @@
     },
     "params": {
         "input_dim": 10,
-        "hidden_dim": 32,
+        "hidden_dim": 128,
         "latent_dim": 2,
         "optimizer": "adam",
         "lr": 1e-4,
